@@ -5,7 +5,7 @@ import nicegui
 
 cmd = [
     'pyinstaller',
-    'main.py', # your main file with ui.run()
+    'simple.py', # your main file with ui.run()
     '--name', 'myapp', # name of your app
 #    '--onefile',
 #    '--windowed',
