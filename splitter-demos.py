@@ -10,6 +10,8 @@ with ui.splitter() as splitter:
         ui.label('This is some content on the right hand side.')
 
 
+ui.run(dark=True)
+
 # def more() -> None:
 #     @text_demo('Advanced usage', '''
 #         This demo shows all the slots and parameters including a tooltip, a custom separator, and a callback.
