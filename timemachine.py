@@ -2,16 +2,19 @@ from nicegui import ui
 
 with ui.splitter().classes('h-screen') as splitter:
     with splitter.before:
-        with ui.splitter(horizontal=True) as splitter2:
+        with ui.splitter(horizontal=True, value=10) as splitter2:
             with splitter2.before:
                 ui.label('BRANCHES '*150)
             with splitter2.after:
-                with ui.splitter(horizontal=True) as splitter2:
+                with ui.splitter(horizontal=True, value=20) as splitter2:
                     with splitter2.before:
                         ui.label('COMMITS '*150)
                     with splitter2.after:
-                        ui.label('TREE '*150)
-
+                        with ui.splitter(horizontal=True) as splitter2:
+                            with splitter2.before:
+                                ui.label('TREE '*150)
+                            with splitter2.after:
+                                ui.label('DIFFS '*150)
     with splitter.after:
         ui.label('FILE CONTENT '*150)
 
