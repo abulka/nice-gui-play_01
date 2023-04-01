@@ -49,7 +49,7 @@ with ui.splitter().classes('h-screen') as splitter:
             with splitter2.after:
                 with ui.splitter(horizontal=True, value=40) as splitter2:
                     with splitter2.before:
-                        with ui.table(title='Commits', columns=columns, rows=rows, selection='single', pagination=10).classes('w-full') as table:
+                        with ui.table(title='Commits', columns=columns, rows=rows, row_key='id', on_select=lambda e: ui.notify(e.value)).classes('w-full') as table:
                             with table.add_slot('top-right'):
                                 with ui.input(placeholder='Search').props('type=search').bind_value(table, 'filter').add_slot('append'):
                                     ui.icon('search')
