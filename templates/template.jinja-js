@@ -1,0 +1,76 @@
+// window.wx_msg.postMessage('This is a message body test');
+
+// MAINTAINING SCROLL POSITION
+
+// Note: The y scroll position is window.scrollY but, because of the use of
+// prism and the pre code element, the horizontal scroll position is not in
+// window.scrollX but is instead in preElement.scrollLeft
+
+function sendScrollPos() {
+    var scrollPos = window.scrollY;
+    window.wx_msg.postMessage({ scrollPos: scrollPos })
+}
+
+window.addEventListener('scroll', sendScrollPos);  // only works for the verical scroll
+
+// MAINTAINING HORIZONTAL SCROLL POSITION
+
+function sendHorizontalScrollPos(scrollPosX) {
+    window.wx_msg.postMessage({ scrollPosX: scrollPosX })
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    var preElement = document.getElementsByTagName('pre')[0];
+    preElement.addEventListener('scroll', function () {
+      sendHorizontalScrollPos(this.scrollLeft)
+    });
+  });
+  
+// JUMPING TO LINE
+
+function scrollToPos(scrollPos) {
+    // Scroll vertically to the given position
+    window.scrollTo(0, scrollPos);
+}
+
+function jumpToLine(lineNumber) {
+    // Find the pre element
+    var preElement = document.querySelector("pre");
+  
+    // Get the height of each line
+    var lineHeight = parseInt(getComputedStyle(preElement).lineHeight);
+  
+    // Get the line number spans
+    var lineNumSpans = preElement.parentElement.querySelectorAll(".line-numbers-rows span");
+  
+    // Get the total number of lines
+    var totalLines = lineNumSpans.length;
+  
+    // Clamp the line number to the valid range
+    var clampedLineNumber = Math.max(1, Math.min(totalLines, lineNumber));
+    
+    // Get the position of the specified line
+    var position = (clampedLineNumber - 1) * lineHeight;
+  
+    // Scroll to the position
+    scrollToPos(position);
+  }
+
+// JUMPING TO LINE ON LOAD OR SCROLL TO POSITION ON LOAD
+
+function scrollPreTo(scroll_to_x) {
+    // Scroll the pre element horizontally to the given position
+    var preElement = document.querySelector("pre");
+    preElement.scrollLeft = scroll_to_x;
+}
+  
+window.onload = function () {
+    {% if scroll_to %}
+    // Scroll to the position with x=0 and y={{ scroll_to }} before the html is loaded to prevent flickering
+    window.scrollTo(0, {{ scroll_to }});
+    scrollPreTo({{ scroll_to_x }});
+    {% elif line_to %}
+    // Scroll to the line before the html is loaded to prevent flickering
+    jumpToLine({{ line_to }});
+    {% endif %}
+};

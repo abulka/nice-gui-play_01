@@ -1,5 +1,21 @@
 import time
 from nicegui import ui
+from jinja2 import Environment, FileSystemLoader
+
+environment = Environment(loader=FileSystemLoader("templates/")) # jinja templating
+lang = 'python'
+
+def setup_prism():
+    template_head = environment.get_template("head.html")
+    ui.add_head_html(template_head.render(lang=lang))
+setup_prism()
+
+def build_html():
+    source_file_contents = open('timemachine.py').read()
+    js_file_contents = ''
+    template = environment.get_template("template2.html")
+    html_str = template.render(lang=lang, source_file_contents=source_file_contents, js_file_contents=js_file_contents)
+    return html_str
 
 columns = [
     {'name': 'name', 'label': 'Name', 'field': 'name', 'required': True},
@@ -60,8 +76,8 @@ with ui.splitter().classes('h-screen') as splitter:
                                         on_select=lambda e: ui.notify(e.value))
 
                             with splitter3.after:
-                                ui.label('DIFFS '*150)
+                                ui.label('DIFFS '*250)
     with splitter.after:
-        ui.label('FILE CONTENT '*850)
+        ui.html(build_html())
 
 ui.run(dark=True)
