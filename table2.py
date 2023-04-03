@@ -24,7 +24,8 @@ unfortunately, currently not possible. There's a related discussion over here:
 """
 # ui.table(columns=columns, rows=rows, row_key='name', on_select=lambda e: print(e.value))
 # ui.table(columns=columns, rows=rows, row_key='name', on_select=lambda e: ui.notify(e.value))
-ui.table(columns=columns, rows=rows, row_key='name', selection='single', on_select=lambda e: ui.notify(e.selection))
+tbl = ui.table(columns=columns, rows=rows, row_key='name', selection='single', on_select=lambda e: ui.notify(e.selection))
+tbl.props('bordered separator dense')
 
 ui.checkbox('hello', on_change=lambda e: ui.notify(e.value))
 
