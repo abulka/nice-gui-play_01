@@ -20,33 +20,47 @@ def find_label(element):
     # `Label` object not found
     return None
 
-with ui.element('q-list').props('bordered separator'):
-    with ui.element('q-item').props('clickable').on('click', lambda: click(item1)) as item1:
-        with ui.element('q-item-section'):
+section_classes = 'w-40 border-l-2 border-gray-300 pl-5'
+
+with ui.element('q-list').props('dense bordered separator'):
+    with ui.element('q-item').props('clickable v-ripple').on('click', lambda: click(item1)) as item1:
+        with ui.element('q-item-section').props('avatar'):
+            ui.element('q-avatar').props('icon=home')
+        with ui.element('q-item-section').classes(section_classes):
             ui.label('Hello World!')
+        with ui.element('q-item-section').classes(section_classes):
+            ui.label('WORLD!')
     with ui.element('q-item').props('clickable').on('click', lambda: click(item2)) as item2:
         with ui.element('q-item-section').props('avatar'):
             ui.element('q-avatar').props('icon=bluetooth')
-        with ui.element('q-item-section'):
+        with ui.element('q-item-section').classes(section_classes):
             ui.label('Bluetooth')
+        with ui.element('q-item-section').classes(section_classes):
+            ui.label('HA HA')
     with ui.element('q-item').props('clickable').on('click', lambda: click(item3)) as item3:
         with ui.element('q-item-section').props('avatar'):
             ui.element('q-avatar').props('icon=wifi')
-        with ui.element('q-item-section'):
+        # add a left border to the section and some padding
+        with ui.element('q-item-section').classes(section_classes):
             ui.label('WiFi')
+        with ui.element('q-item-section').classes(section_classes):
+            ui.label('HO HOOOOOO')
 
 def click(item: ui.element) -> None:
-    item._props['active'] = not item._props.get('active', False)
+    # make all items inactive then activate the one clicked
+    for _item in [item1, item2, item3]:
+        _item._props['active'] = False
+        _item.update()
+    # activate the one clicked, not by toggling but by setting to True
+    item._props['active'] = True
     item.update()
-    # ui.notify(item.slots['default'].children[0].slots['default'].children[0].text)
-    # keep drilling down till through slots and children till find tag property of 'q-label'
 
+    # find the label in the item and print its text
     label = find_label(item)
     if label is not None:
-        # ui.notify(label.slots['default'].children[0].text)
         ui.notify(label.text)
 
-    dump_obj(item)
+    # dump_obj(item)
 
 ui.checkbox('hello!', on_change=lambda e: ui.notify(e.value))
 
