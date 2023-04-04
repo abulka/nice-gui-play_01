@@ -20,24 +20,32 @@ def find_label(element):
     # `Label` object not found
     return None
 
+ui.add_head_html('''
+<style>
+.my-menu-link {
+  color: white;
+  background: #59aef2; /* blue */
+}
+</style>
+''')
 section_classes = 'w-40 border-l-2 border-gray-300 pl-5'
 
 with ui.element('q-list').props('dense bordered separator'):
-    with ui.element('q-item').props('clickable v-ripple').on('click', lambda: click(item1)) as item1:
+    with ui.element('q-item').props('clickable active-class="my-menu-link"').on('click', lambda: click(item1)) as item1:
         with ui.element('q-item-section').props('avatar'):
             ui.element('q-avatar').props('icon=home')
         with ui.element('q-item-section').classes(section_classes):
             ui.label('Hello World!')
         with ui.element('q-item-section').classes(section_classes):
             ui.label('WORLD!')
-    with ui.element('q-item').props('clickable').on('click', lambda: click(item2)) as item2:
+    with ui.element('q-item').props('clickable active-class="my-menu-link"').on('click', lambda: click(item2)) as item2:
         with ui.element('q-item-section').props('avatar'):
             ui.element('q-avatar').props('icon=bluetooth')
         with ui.element('q-item-section').classes(section_classes):
             ui.label('Bluetooth')
         with ui.element('q-item-section').classes(section_classes):
             ui.label('HA HA')
-    with ui.element('q-item').props('clickable').on('click', lambda: click(item3)) as item3:
+    with ui.element('q-item').props('clickable active-class="my-menu-link"').on('click', lambda: click(item3)) as item3:
         with ui.element('q-item-section').props('avatar'):
             ui.element('q-avatar').props('icon=wifi')
         # add a left border to the section and some padding
