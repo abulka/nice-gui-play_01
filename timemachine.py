@@ -65,10 +65,14 @@ with ui.splitter().classes('h-screen') as splitter:
             with splitter2.after:
                 with ui.splitter(horizontal=True, value=40) as splitter2:
                     with splitter2.before:
+
+                        # this needs to be replaced with selectable row listview
                         with ui.table(title='Commits', columns=columns, rows=rows, row_key='id', selection='single', on_select=lambda e: ui.notify(e.selection)).classes('w-full').props('dense') as table:
                             with table.add_slot('top-right'):
                                 with ui.input(placeholder='Search').props('type=search').bind_value(table, 'filter').add_slot('append'):
                                     ui.icon('search')
+                        # end
+                        
                     with splitter2.after:
                         with ui.splitter(horizontal=True) as splitter3:
                             with splitter3.before:
