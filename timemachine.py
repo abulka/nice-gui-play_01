@@ -95,6 +95,14 @@ tree_data = [
     ]}
 ]
 
+class FileTree:
+    def __init__(self) -> None:
+        self.data = tree_data
+        self.selected = None
+        # self.expanded = ['numbers', 'letters']
+        self.expanded = ['A']
+tree = FileTree()
+
 #  branches
 
 class Branches:
@@ -123,7 +131,8 @@ with ui.splitter(value=30).classes('h-screen') as splitter:
                 with ui.splitter(horizontal=True) as splitter3:
                     with splitter3.before:
                         ui.tree(tree_data, label_key='id',
-                                on_select=lambda e: ui.notify(e.value))
+                                on_select=lambda e: ui.notify(e.value)).props('expanded=["letters"]')
+                                # on_select=lambda e: ui.notify(e.value)).props(f'expanded={tree.expanded}')
 
                     with splitter3.after:
                         ui.label('DIFFS '*250)
