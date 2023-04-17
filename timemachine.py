@@ -134,7 +134,8 @@ with ui.splitter(value=30).classes('h-screen') as splitter:
                             'columnDefs': commits_columns,
                             'rowData': commits_rows,
                             'rowSelection': 'single',
-                        }).classes('p-1 h-full') 
+                        }).on('rowSelected', lambda msg: print(msg)).classes(add='p-1 h-full ag-theme-alpine-dark', remove='ag-theme-balham')
+                        # 'p-1 h-full', 
                         # }).classes('p-1 ag-theme-alpine-dark h-full') 
                         # but default ag-theme-balham interferes with the dark theme even though we
                         # seem to be correctly setting the theme - https://stackoverflow.com/questions/59161931/why-is-ag-theme-balham-the-only-ag-grid-theme-that-works
