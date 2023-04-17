@@ -111,38 +111,15 @@ with ui.splitter(value=30).classes('h-screen') as splitter:
                 
                 select2 = ui.select(branches.options).bind_value(branches, 'current_branch')
 
-                # grid = ui.aggrid({
-                #     'columnDefs': commits_columns,
-                #     'rowData': commits_rows,
-                #     'rowSelection': 'single',
-                # })
-
-                # ui.label('BRANCHES '*150)
-
             with splitter2.after:
                 with ui.splitter(horizontal=True, value=40) as splitter2:
                     with splitter2.before:
-
-                        # this needs to be replaced with selectable row listview
-                        # with ui.table(title='Commits', columns=columns, rows=rows, row_key='id', selection='single', on_select=lambda e: ui.notify(e.selection)).classes('w-full').props('dense') as table:
-                        #     with table.add_slot('top-right'):
-                        #         with ui.input(placeholder='Search').props('type=search').bind_value(table, 'filter').add_slot('append'):
-                        #             ui.icon('search')
-                        # end
 
                         grid = ui.aggrid({
                             'columnDefs': commits_columns,
                             'rowData': commits_rows,
                             'rowSelection': 'single',
                         }).on('rowSelected', lambda msg: print(msg)).classes(add='p-1 h-full ag-theme-alpine-dark', remove='ag-theme-balham')
-                        # 'p-1 h-full', 
-                        # }).classes('p-1 ag-theme-alpine-dark h-full') 
-                        # but default ag-theme-balham interferes with the dark theme even though we
-                        # seem to be correctly setting the theme - https://stackoverflow.com/questions/59161931/why-is-ag-theme-balham-the-only-ag-grid-theme-that-works
-                        # and including the css in the html head.  
-                        # Both ag-theme-balham and ag-theme-alpine-dark styles appear in the html with
-                        # ag-theme-balham always winning out. See https://www.ag-grid.com/javascript-data-grid/themes/
-                        # for more info on themes.
 
                     with splitter2.after:
                         with ui.splitter(horizontal=True) as splitter3:
