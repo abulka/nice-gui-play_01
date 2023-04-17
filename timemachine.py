@@ -17,6 +17,39 @@ def build_html():
     html_str = template.render(lang=lang, source_file_contents=source_file_contents, js_file_contents=js_file_contents)
     return html_str
 
+# ui.aggrid
+
+commits_columns = [
+        {'headerName': 'Name', 'field': 'name'},
+        {'headerName': 'Age', 'field': 'age'},
+    ]
+
+commits_rows = [
+        {'name': 'Alice', 'age': 18},
+        {'name': 'Bob', 'age': 21},
+        {'name': 'Carol', 'age': 42},
+        {'name': 'Dave', 'age': 32},
+        {'name': 'Eve', 'age': 18},
+        {'name': 'Frank', 'age': 21},
+        {'name': 'Grace', 'age': 42},
+        {'name': 'Helen', 'age': 32},
+        {'name': 'Ivan', 'age': 18},
+        {'name': 'John', 'age': 21},
+        {'name': 'Karl', 'age': 42},
+        {'name': 'Linda', 'age': 32},
+        {'name': 'Mike', 'age': 18},
+        {'name': 'Nancy', 'age': 21},
+        {'name': 'Oscar', 'age': 42},
+        {'name': 'Pam', 'age': 32},
+        {'name': 'Quentin', 'age': 18},
+        {'name': 'Ruth', 'age': 21},
+        {'name': 'Steve', 'age': 42},
+        {'name': 'Tina', 'age': 32},
+        {'name': 'Ursula', 'age': 18},
+    ]
+
+# ui.table
+
 columns = [
     {'name': 'name', 'label': 'Name', 'field': 'name', 'required': True},
     {'name': 'age', 'label': 'Age', 'field': 'age', 'sortable': True},
@@ -30,6 +63,8 @@ rows = [
     {'id': 5, 'name': 'Livia', 'age': 25},
     {'id': 6, 'name': 'Carol'},
 ]
+
+# ui.tree
 
 tree_data = [
     {'id': 'numbers', 'children': [
@@ -57,7 +92,7 @@ tree_data = [
     ]}
 ]
 
-with ui.splitter().classes('h-screen') as splitter:
+with ui.splitter(value=25).classes('h-screen') as splitter:
     with splitter.before:
         with ui.splitter(horizontal=True, value=10) as splitter2:
             with splitter2.before:
@@ -74,17 +109,10 @@ with ui.splitter().classes('h-screen') as splitter:
                         # end
 
                         grid = ui.aggrid({
-                            'columnDefs': [
-                                {'headerName': 'Name', 'field': 'name'},
-                                {'headerName': 'Age', 'field': 'age'},
-                            ],
-                            'rowData': [
-                                {'name': 'Alice', 'age': 18},
-                                {'name': 'Bob', 'age': 21},
-                                {'name': 'Carol', 'age': 42},
-                            ],
+                            'columnDefs': commits_columns,
+                            'rowData': commits_rows,
                             'rowSelection': 'multiple',
-                        }).classes('max-h-40')
+                        })
 
                     with splitter2.after:
                         with ui.splitter(horizontal=True) as splitter3:
