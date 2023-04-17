@@ -21,10 +21,10 @@ def build_html():
 # ui.aggrid
 
 commits_columns = [
-        {'headerName': 'SHA', 'field': 'sha'},
-        {'headerName': 'Comment', 'field': 'comment'},
-        {'headerName': 'Date', 'field': 'date'},
-        {'headerName': 'Author', 'field': 'author'},
+        {'headerName': 'SHA', 'field': 'sha', 'resizable': True },
+        {'headerName': 'Comment', 'field': 'comment', 'resizable': True },
+        {'headerName': 'Date', 'field': 'date', 'resizable': True },
+        {'headerName': 'Author', 'field': 'author', 'resizable': True },
     ]
 
 commits_rows = [
@@ -140,7 +140,8 @@ with ui.splitter(value=30).classes('h-screen') as splitter:
                         # seem to be correctly setting the theme - https://stackoverflow.com/questions/59161931/why-is-ag-theme-balham-the-only-ag-grid-theme-that-works
                         # and including the css in the html head.  
                         # Both ag-theme-balham and ag-theme-alpine-dark styles appear in the html with
-                        # ag-theme-balham always winning out
+                        # ag-theme-balham always winning out. See https://www.ag-grid.com/javascript-data-grid/themes/
+                        # for more info on themes.
 
                     with splitter2.after:
                         with ui.splitter(horizontal=True) as splitter3:
