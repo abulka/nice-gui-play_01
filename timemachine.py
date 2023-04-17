@@ -22,9 +22,9 @@ def build_html():
 
 commits_columns = [
         {'headerName': 'SHA', 'field': 'sha'},
+        {'headerName': 'Comment', 'field': 'comment'},
         {'headerName': 'Date', 'field': 'date'},
         {'headerName': 'Author', 'field': 'author'},
-        {'headerName': 'Comment', 'field': 'comment'},
     ]
 
 commits_rows = [
@@ -104,7 +104,7 @@ class Branches:
 
 branches = Branches()
 
-with ui.splitter(value=25).classes('h-screen') as splitter:
+with ui.splitter(value=30).classes('h-screen') as splitter:
     with splitter.before:
         with ui.splitter(horizontal=True, value=10) as splitter2:
             with splitter2.before:
@@ -134,7 +134,8 @@ with ui.splitter(value=25).classes('h-screen') as splitter:
                             'columnDefs': commits_columns,
                             'rowData': commits_rows,
                             'rowSelection': 'single',
-                        }).classes('p-1 ag-theme-alpine-dark') 
+                        }).classes('p-1 h-full') 
+                        # }).classes('p-1 ag-theme-alpine-dark h-full') 
                         # but default ag-theme-balham interferes with the dark theme even though we
                         # seem to be correctly setting the theme - https://stackoverflow.com/questions/59161931/why-is-ag-theme-balham-the-only-ag-grid-theme-that-works
                         # and including the css in the html head.  
