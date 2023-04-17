@@ -130,10 +130,17 @@ with ui.splitter(value=40).classes('h-screen') as splitter:
                 with ui.splitter(horizontal=True) as splitter3:
                     with splitter3.before:
                         mytree = ui.tree(tree_data, label_key='id',
-                                on_select=lambda e: ui.notify(e.value)).props('default-expand-all dense selected-color="red"')
+                                on_select=lambda e: ui.notify(e.value)).props('dense selected-color="blue"')
+                                # on_select=lambda e: ui.notify(e.value)).props('default-expand-all dense selected-color="red"')
                                 # on_select=lambda e: ui.notify(e.value)).props('expanded=["letters"]')
                                 # on_select=lambda e: ui.notify(e.value)).props(f'expanded={tree.expanded}')
                         ui.button('Expand all').on('click', lambda e: mytree.run_method('expandAll'))
+                        ui.button('Collapse all').on('click', lambda e: mytree.run_method('collapseAll'))
+                        ui.button('Get Selected').on('click', lambda e: ui.notify(mytree._props.get('selected')))
+                        ui.button('Get Expanded').on('click', lambda e: ui.notify(mytree._props.get('expanded')))
+                        ui.button('getExpandedNodes').on('click', lambda e: ui.notify(mytree.run_method('getExpandedNodes')))
+                        # ui.button('Set Expanded').on('click', lambda e: mytree.props(add='expanded=["letters"]'))
+                        # ui.button('Set Expanded').on('click', lambda e: mytree.props('expanded=["letters"]'))
                     with splitter3.after:
                         ui.label('DIFFS '*250)
     with splitter.after:
