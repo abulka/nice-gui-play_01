@@ -106,29 +106,24 @@ branches = Branches()
 
 with ui.splitter(value=30).classes('h-screen') as splitter:
     with splitter.before:
-        with ui.splitter(horizontal=True, value=10) as splitter2:
+        select2 = ui.select(branches.options).bind_value(branches, 'current_branch')
+        with ui.splitter(horizontal=True, value=40) as splitter2:
             with splitter2.before:
-                
-                select2 = ui.select(branches.options).bind_value(branches, 'current_branch')
+
+                grid = ui.aggrid({
+                    'columnDefs': commits_columns,
+                    'rowData': commits_rows,
+                    'rowSelection': 'single',
+                }).on('rowSelected', lambda msg: print(msg)).classes(add='p-1 h-full ag-theme-alpine-dark', remove='ag-theme-balham')
 
             with splitter2.after:
-                with ui.splitter(horizontal=True, value=40) as splitter2:
-                    with splitter2.before:
+                with ui.splitter(horizontal=True) as splitter3:
+                    with splitter3.before:
+                        ui.tree(tree_data, label_key='id',
+                                on_select=lambda e: ui.notify(e.value))
 
-                        grid = ui.aggrid({
-                            'columnDefs': commits_columns,
-                            'rowData': commits_rows,
-                            'rowSelection': 'single',
-                        }).on('rowSelected', lambda msg: print(msg)).classes(add='p-1 h-full ag-theme-alpine-dark', remove='ag-theme-balham')
-
-                    with splitter2.after:
-                        with ui.splitter(horizontal=True) as splitter3:
-                            with splitter3.before:
-                                ui.tree(tree_data, label_key='id',
-                                        on_select=lambda e: ui.notify(e.value))
-
-                            with splitter3.after:
-                                ui.label('DIFFS '*250)
+                    with splitter3.after:
+                        ui.label('DIFFS '*250)
     with splitter.after:
         ui.html(build_html())
 
