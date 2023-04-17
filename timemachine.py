@@ -112,9 +112,8 @@ class Branches:
 
 branches = Branches()
 
-with ui.splitter(value=30).classes('h-screen') as splitter:
+with ui.splitter(value=40).classes('h-screen') as splitter:
     with splitter.before:
-        # add ui.row
         with ui.row().style('align-items: center;'):
             ui.label('Branch:')
             select2 = ui.select(branches.options).bind_value(branches, 'current_branch')
@@ -130,10 +129,11 @@ with ui.splitter(value=30).classes('h-screen') as splitter:
             with splitter2.after:
                 with ui.splitter(horizontal=True) as splitter3:
                     with splitter3.before:
-                        ui.tree(tree_data, label_key='id',
-                                on_select=lambda e: ui.notify(e.value)).props('expanded=["letters"]')
+                        mytree = ui.tree(tree_data, label_key='id',
+                                on_select=lambda e: ui.notify(e.value)).props('default-expand-all dense selected-color="red"')
+                                # on_select=lambda e: ui.notify(e.value)).props('expanded=["letters"]')
                                 # on_select=lambda e: ui.notify(e.value)).props(f'expanded={tree.expanded}')
-
+                        ui.button('Expand all').on('click', lambda e: mytree.run_method('expandAll'))
                     with splitter3.after:
                         ui.label('DIFFS '*250)
     with splitter.after:
