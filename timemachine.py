@@ -8,6 +8,7 @@ lang = 'python'
 def setup_prism():
     template_head = environment.get_template("head.html")
     ui.add_head_html(template_head.render(lang=lang))
+
 setup_prism()
 
 def build_html():
@@ -94,11 +95,30 @@ tree_data = [
     ]}
 ]
 
+#  branches
+
+class Branches:
+    def __init__(self) -> None:
+        self.options = ['master', 'main', 'experiment', 'branch2', 'branch2a']
+        self.current_branch = self.options[0]
+
+branches = Branches()
+
 with ui.splitter(value=25).classes('h-screen') as splitter:
     with splitter.before:
         with ui.splitter(horizontal=True, value=10) as splitter2:
             with splitter2.before:
-                ui.label('BRANCHES '*150)
+                
+                select2 = ui.select(branches.options).bind_value(branches, 'current_branch')
+
+                # grid = ui.aggrid({
+                #     'columnDefs': commits_columns,
+                #     'rowData': commits_rows,
+                #     'rowSelection': 'single',
+                # })
+
+                # ui.label('BRANCHES '*150)
+
             with splitter2.after:
                 with ui.splitter(horizontal=True, value=40) as splitter2:
                     with splitter2.before:
@@ -113,8 +133,13 @@ with ui.splitter(value=25).classes('h-screen') as splitter:
                         grid = ui.aggrid({
                             'columnDefs': commits_columns,
                             'rowData': commits_rows,
-                            'rowSelection': 'multiple',
-                        })
+                            'rowSelection': 'single',
+                        }).classes('p-1 ag-theme-alpine-dark') 
+                        # but default ag-theme-balham interferes with the dark theme even though we
+                        # seem to be correctly setting the theme - https://stackoverflow.com/questions/59161931/why-is-ag-theme-balham-the-only-ag-grid-theme-that-works
+                        # and including the css in the html head.  
+                        # Both ag-theme-balham and ag-theme-alpine-dark styles appear in the html with
+                        # ag-theme-balham always winning out
 
                     with splitter2.after:
                         with ui.splitter(horizontal=True) as splitter3:
