@@ -106,7 +106,10 @@ branches = Branches()
 
 with ui.splitter(value=30).classes('h-screen') as splitter:
     with splitter.before:
-        select2 = ui.select(branches.options).bind_value(branches, 'current_branch')
+        # add ui.row
+        with ui.row().style('align-items: center;'):
+            ui.label('Branch:')
+            select2 = ui.select(branches.options).bind_value(branches, 'current_branch')
         with ui.splitter(horizontal=True, value=40) as splitter2:
             with splitter2.before:
 
