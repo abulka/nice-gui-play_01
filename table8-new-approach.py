@@ -25,8 +25,10 @@ def toggle_select(row: dict) -> None:
     print('toggle_select', row, table.selected)
     table.update()
 
-columns = [{'name': 'name', 'label': 'Name', 'field': 'name'}]
-rows = [{'name': 'Alice'}, {'name': 'Bob'}, {'name': 'Carol'}]
+columns = [{'name': 'name', 'label': 'Name', 'field': 'name'},
+              {'name': 'age', 'label': 'Age', 'field': 'age'}
+           ]
+rows = [{'name': 'Alice', 'age': 20}, {'name': 'Bob', 'age': 30}, {'name': 'Carol', 'age': 40}]
 with ui.table(columns=columns, rows=rows, row_key='name') as table:
     ui.label('hi there')
     table.add_slot('body-cell', r"""
