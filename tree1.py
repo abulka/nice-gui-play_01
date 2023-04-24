@@ -21,7 +21,15 @@ button1 = ui.button('Button Click Manually', on_click=lambda: ui.notify('Click M
 knob = ui.knob(0.3, show_value=True)
 ui.button('turn up', on_click=lambda: knob.set_value(0.8))
 
+# See https://github.com/zauberzeug/nicegui/discussions/804
+modifyable_tree = ui.tree([
+    {'id': 'numbers', 'children': [
+        {'id': '1'}, {'id': '2'}]},
+    {'id': 'letters', 'children': [{'id': 'A'}, {'id': 'B'}]},
+], label_key='id', on_select=lambda e: ui.notify(e.value))
 
+# add button to add a new item to the tree under letters DOESN'T WORK
+ui.button('add item', on_click=lambda: modifyable_tree.nodes.append({'id': 'C'}))
 
 ui.tree([
     {'id': 'numbers', 'children': [
